@@ -9,10 +9,11 @@ import { CommandSearchModal } from "@/components/shared/CommandSearchModal";
 import { ThemeToggle } from "@/components/shared/ThemeToggle";
 
 const NAV_LINKS = [
-  { href: "/explore", label: "Archive" },
+  { href: "/explore", label: "Explore" },
+  { href: "/networking", label: "Networking" },
   { href: "/cloud", label: "Cloud" },
   { href: "/security", label: "Security" },
-  { href: "/architecture", label: "Architecture" },
+  // { href: "/architecture", label: "Architecture" },
   { href: "/about", label: "About" },
   { href: "/support", label: "Support" },
 ] as const;
@@ -50,8 +51,14 @@ export function Navbar({ searchDocs }: { searchDocs: SearchDocument[] }) {
           {/* Editorial Wordmark */}
           <Link
             href="/"
-            className="flex items-baseline gap-2 text-[var(--text-primary)] transition-opacity hover:opacity-85"
+            className="flex items-center gap-2.5 text-[var(--text-primary)] transition-opacity hover:opacity-85"
           >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="/images/stratumsec-icon.png"
+              alt="StratumSec logo"
+              className="h-7 w-7 rounded-md object-cover border border-[var(--border-default)]"
+            />
             <span className="font-display text-[15px] font-semibold tracking-[0.06em] uppercase">
               Stratum<span className="text-[var(--accent-lime)]">Sec</span>
             </span>

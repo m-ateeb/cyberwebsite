@@ -1,13 +1,13 @@
 import React from "react";
 import Link from "next/link";
-import { BookOpen, Cpu, GitBranch, Shield } from "lucide-react";
+import { BookOpen, Compass, Eye, Sparkles } from "lucide-react";
 import { buildPageMetadata } from "@/lib/seo";
 import { SupportCTA } from "@/components/shared/SupportCTA";
 
 export const metadata = buildPageMetadata({
   title: "About",
   description:
-    "The mission, editorial philosophy, and static-first technical architecture behind StratumSec.",
+    "Why StratumSec exists: making networking, cloud, and security concepts clear, visual, and accessible to everyone.",
   pathname: "/about",
 });
 
@@ -19,61 +19,62 @@ export default function AboutPage() {
           About StratumSec
         </p>
         <h1 className="font-display text-3xl sm:text-5xl font-bold tracking-tight text-[var(--text-primary)]">
-          Engineering knowledge. Without the noise.
+          Making complex tech easy to understand.
         </h1>
         <p className="text-lg leading-relaxed text-[var(--text-secondary)]">
-          StratumSec is an independent technical publication and interactive
-          engineering environment focused on Cloud Infrastructure and
-          Cybersecurity.
+          When I was learning networking, cloud infrastructure, and security, I
+          had to read through dozens of scattered, overly complicated resources
+          just to grasp a single concept. I built this platform so anyone can
+          learn these topics clearly, visually, and without the frustration.
         </p>
       </header>
 
       <section className="grid gap-6 sm:grid-cols-2">
         <div className="rounded-2xl border border-[var(--border-default)] bg-[var(--bg-surface)] p-6 space-y-2.5">
-          <BookOpen className="h-5 w-5 text-[var(--accent-lime)]" />
+          <Compass className="h-5 w-5 text-[var(--accent-lime)]" />
           <h2 className="font-display text-lg font-bold text-[var(--text-primary)]">
-            Practitioner-First Clarity
+            Built From Real Learning Struggles
           </h2>
           <p className="text-sm leading-relaxed text-[var(--text-secondary)]">
-            Every note starts with the concrete failure mode or threat model,
-            walks through the real mechanism, and ends with production-ready
-            hardening controls.
+            Too many technical guides assume you already know half the jargon.
+            Every topic here is written from scratch the way I wish someone had
+            explained it to me—straightforward, structured, and approachable.
           </p>
         </div>
 
         <div className="rounded-2xl border border-[var(--border-default)] bg-[var(--bg-surface)] p-6 space-y-2.5">
-          <GitBranch className="h-5 w-5 text-[var(--accent-blue)]" />
+          <BookOpen className="h-5 w-5 text-[var(--accent-blue)]" />
           <h2 className="font-display text-lg font-bold text-[var(--text-primary)]">
-            Static-First &amp; Git-Backed
+            Clear Enough to Teach Someone Else
           </h2>
           <p className="text-sm leading-relaxed text-[var(--text-secondary)]">
-            All technical notes live as version-controlled Markdown in Git,
-            managed through Decap CMS and deployed statically—no bloated servers
-            or tracking scripts.
+            The goal of every guide is simple: after reading it once, you should
+            not only understand how the concept works, you should be able to
+            explain it in plain English to a friend, teammate, or interviewer.
           </p>
         </div>
 
         <div className="rounded-2xl border border-[var(--border-default)] bg-[var(--bg-surface)] p-6 space-y-2.5">
-          <Cpu className="h-5 w-5 text-[var(--accent-blue)]" />
+          <Eye className="h-5 w-5 text-[var(--accent-blue)]" />
           <h2 className="font-display text-lg font-bold text-[var(--text-primary)]">
-            Simulation-Ready Architecture
+            Visual &amp; Interactive by Default
           </h2>
           <p className="text-sm leading-relaxed text-[var(--text-secondary)]">
-            Each article schema reserves a structured interface for the upcoming
-            StratumSec Interactive Learning Engine (SILE), bringing verified
-            visual simulations to complex protocols and architectures.
+            Some concepts only click when you can see them move. Each note pairs
+            plain-English analogies with interactive diagrams and animations so
+            you can test ideas step by step instead of memorizing definitions.
           </p>
         </div>
 
         <div className="rounded-2xl border border-[var(--border-default)] bg-[var(--bg-surface)] p-6 space-y-2.5">
-          <Shield className="h-5 w-5 text-[var(--accent-lime)]" />
+          <Sparkles className="h-5 w-5 text-[var(--accent-lime)]" />
           <h2 className="font-display text-lg font-bold text-[var(--text-primary)]">
-            Zero-Noise Reading Experience
+            Accessible Knowledge for Everyone
           </h2>
           <p className="text-sm leading-relaxed text-[var(--text-secondary)]">
-            Clean dark typography, syntax-highlighted code blocks, keyboard
-            search, and accessible static HTML that works even with JavaScript
-            disabled.
+            Free to read, clean, and distraction-free—whether you are a student
+            starting from zero or an engineer brushing up on cloud and
+            networking fundamentals, you belong here.
           </p>
         </div>
       </section>
@@ -83,13 +84,7 @@ export default function AboutPage() {
           href="/explore"
           className="inline-flex items-center rounded-xl bg-[var(--accent-lime)] px-5 py-2.5 text-sm font-semibold text-[#090d12]"
         >
-          Browse Knowledge Library
-        </Link>
-        <Link
-          href="/architecture"
-          className="inline-flex items-center rounded-xl border border-[var(--border-default)] bg-[var(--bg-surface)] px-5 py-2.5 text-sm font-medium text-[var(--text-primary)] hover:border-[var(--border-strong)]"
-        >
-          Explore 3D Architecture Stack
+          Explore Knowledge Library
         </Link>
       </div>
 

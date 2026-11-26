@@ -49,7 +49,7 @@ export default function HomePage() {
                 href="/explore"
                 className="inline-flex h-10 items-center gap-2 rounded-md bg-[var(--text-primary)] px-4 text-sm font-medium text-[var(--bg-base)] transition-opacity hover:opacity-90"
               >
-                Browse Archive
+                Explore Notes
                 <ArrowRight className="h-4 w-4" />
               </Link>
               <a
@@ -241,7 +241,12 @@ export default function HomePage() {
                 className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
               >
                 {topic.title} (
-                {topic.slug === "cloud" ? stats.cloudCount : stats.securityCount})
+                {topic.slug === "cloud"
+                  ? stats.cloudCount
+                  : topic.slug === "networking"
+                  ? stats.networkingCount
+                  : stats.securityCount}
+                )
               </Link>
             ))}
           </div>
@@ -249,7 +254,7 @@ export default function HomePage() {
 
         <div className="divide-y divide-[var(--border-default)] border-y border-[var(--border-default)]">
           {allNotes.map((note) => {
-            const isCloud = note.category === "Cloud Infrastructure";
+            const isSecurity = note.category === "Cybersecurity";
             return (
               <Link
                 key={note.slug}
@@ -261,12 +266,14 @@ export default function HomePage() {
                 </span>
                 <span
                   className={`font-mono text-[11px] md:col-span-2 ${
-                    isCloud
-                      ? "text-[var(--accent-blue)]"
-                      : "text-[var(--accent-lime)]"
+                    isSecurity
+                      ? "text-[var(--accent-lime)]"
+                      : "text-[var(--accent-blue)]"
                   }`}
                 >
-                  {isCloud ? "Cloud Infra" : "Cybersecurity"}
+                  {note.category === "Cloud Infrastructure"
+                    ? "Cloud Infra"
+                    : note.category}
                 </span>
                 <div className="md:col-span-6">
                   <h3 className="font-display text-base font-medium text-[var(--text-primary)] group-hover:text-[var(--accent-blue)] transition-colors">

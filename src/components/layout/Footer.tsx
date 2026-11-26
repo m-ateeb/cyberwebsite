@@ -26,7 +26,12 @@ export function Footer() {
             <ul className="space-y-2 text-[var(--text-secondary)]">
               <li>
                 <Link href="/explore" className="hover:text-[var(--text-primary)]">
-                  All Notes
+                  Explore All Notes
+                </Link>
+              </li>
+              <li>
+                <Link href="/networking" className="hover:text-[var(--text-primary)]">
+                  Networking
                 </Link>
               </li>
               <li>
@@ -39,11 +44,13 @@ export function Footer() {
                   Cybersecurity
                 </Link>
               </li>
+              {/*
               <li>
                 <Link href="/architecture" className="hover:text-[var(--text-primary)]">
                   Architecture Explorer
                 </Link>
               </li>
+              */}
             </ul>
           </div>
 
@@ -58,6 +65,11 @@ export function Footer() {
                 </Link>
               </li>
               <li>
+                <Link href="/support#contact" className="hover:text-[var(--text-primary)]">
+                  Contact
+                </Link>
+              </li>
+              <li>
                 <Link href="/support" className="hover:text-[var(--text-primary)]">
                   Support &amp; Dispatches
                 </Link>
@@ -66,16 +78,6 @@ export function Footer() {
                 <Link href="/rss.xml" className="hover:text-[var(--text-primary)]">
                   RSS Feed
                 </Link>
-              </li>
-              <li>
-                <a
-                  href="https://github.com/m-ateeb/cyberwebsite"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="hover:text-[var(--text-primary)]"
-                >
-                  GitHub Source
-                </a>
               </li>
             </ul>
           </div>

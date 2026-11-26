@@ -9,7 +9,7 @@ interface NoteCardProps {
 }
 
 export function NoteCard({ note, variant = "default" }: NoteCardProps) {
-  const isCloud = note.category === "Cloud Infrastructure";
+  const isSecurity = note.category === "Cybersecurity";
 
   return (
     <article className="group flex h-full flex-col justify-between rounded-lg border border-[var(--border-default)] bg-[var(--bg-surface)] p-5 transition-colors hover:border-[var(--border-strong)]">
@@ -17,9 +17,9 @@ export function NoteCard({ note, variant = "default" }: NoteCardProps) {
         <div className="flex items-center justify-between gap-2 font-mono text-[11px]">
           <span
             className={
-              isCloud
-                ? "text-[var(--accent-blue)]"
-                : "text-[var(--accent-lime)]"
+              isSecurity
+                ? "text-[var(--accent-lime)]"
+                : "text-[var(--accent-blue)]"
             }
           >
             {note.category}

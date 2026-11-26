@@ -98,8 +98,14 @@ async function NotePageContent({
   const related = getRelatedNotes(note, 3);
   const { prev, next } = getAdjacentNotes(note.slug);
   const siblingNotes = getNotesByCategory(note.category);
-  const isCloud = note.category === "Cloud Infrastructure";
-  const topicHref = isCloud ? "/cloud" : "/security";
+  const isCloud =
+    note.category === "Cloud Infrastructure" || note.category === "Networking";
+  const topicHref =
+    note.category === "Networking"
+      ? "/networking"
+      : note.category === "Cloud Infrastructure"
+      ? "/cloud"
+      : "/security";
   const jsonLd = buildNoteJsonLd(note);
 
   return (
@@ -176,6 +182,7 @@ async function NotePageContent({
                 </ul>
               </div>
 
+              {/*
               <Link
                 href="/architecture"
                 className="flex items-center justify-between rounded-xl border border-[var(--border-default)] bg-[var(--bg-surface)] p-4 text-xs text-[var(--text-secondary)] transition-colors hover:border-[var(--accent-blue)] hover:text-[var(--text-primary)]"
@@ -183,6 +190,17 @@ async function NotePageContent({
                 <span className="inline-flex items-center gap-2 font-medium">
                   <Layers className="h-4 w-4 text-[var(--accent-blue)]" />
                   3D Architecture Stack
+                </span>
+                <ArrowRight className="h-3.5 w-3.5" />
+              </Link>
+              */}
+              <Link
+                href="/networking"
+                className="flex items-center justify-between rounded-xl border border-[var(--border-default)] bg-[var(--bg-surface)] p-4 text-xs text-[var(--text-secondary)] transition-colors hover:border-[var(--accent-blue)] hover:text-[var(--text-primary)]"
+              >
+                <span className="inline-flex items-center gap-2 font-medium">
+                  <Layers className="h-4 w-4 text-[var(--accent-blue)]" />
+                  Networking Topic Hub
                 </span>
                 <ArrowRight className="h-3.5 w-3.5" />
               </Link>

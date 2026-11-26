@@ -1,6 +1,6 @@
 import type { LearningExperienceMetadata } from "@/features/learning/schemas/learningExperience";
 
-export type NoteCategory = "Cloud Infrastructure" | "Cybersecurity";
+export type NoteCategory = "Cloud Infrastructure" | "Networking" | "Cybersecurity";
 export type NoteDifficulty = "Beginner" | "Intermediate" | "Advanced";
 
 export interface NoteRecord {
@@ -40,7 +40,7 @@ export interface SearchDocument {
 
 export interface TopicRecord {
   title: NoteCategory;
-  slug: "cloud" | "security";
+  slug: "cloud" | "networking" | "security";
   description: string;
   accent: "blue" | "lime";
   subcategories: string[];

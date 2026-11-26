@@ -6,6 +6,7 @@ import { LearningExperienceSchema } from "@/features/learning/schemas/learningEx
 
 export const NoteCategorySchema = z.enum([
   "Cloud Infrastructure",
+  "Networking",
   "Cybersecurity",
 ]);
 
@@ -62,7 +63,7 @@ export interface SearchDocument {
 
 export const TopicFrontmatterSchema = z.object({
   title: NoteCategorySchema,
-  slug: z.enum(["cloud", "security"]),
+  slug: z.enum(["cloud", "networking", "security"]),
   description: z.string(),
   accent: z.enum(["blue", "lime"]).default("blue"),
   subcategories: z.array(z.string()).default([]),
@@ -149,6 +150,10 @@ export function getNotesByCategory(category: NoteCategory): NoteRecord[] {
   return getAllNotes().filter((note) => note.category === category);
 }
 
+export function getNetworkingNotes(): NoteRecord[] {
+  return getNotesByCategory("Networking");
+}
+
 export function getFeaturedNotes(limit = 3): NoteRecord[] {
   const all = getAllNotes();
   const featured = all.filter((n) => n.featured);
@@ -200,7 +205,9 @@ export function getAllTopics(): TopicRecord[] {
   });
 }
 
-export function getTopicBySlug(slug: "cloud" | "security"): TopicRecord | undefined {
+export function getTopicBySlug(
+  slug: "cloud" | "networking" | "security"
+): TopicRecord | undefined {
   return getAllTopics().find((t) => t.slug === slug);
 }
 
@@ -215,6 +222,7 @@ export function getAllTags(): string[] {
 export function getKnowledgeStats() {
   const notes = getAllNotes();
   const cloudCount = notes.filter((n) => n.category === "Cloud Infrastructure").length;
+  const networkingCount = notes.filter((n) => n.category === "Networking").length;
   const securityCount = notes.filter((n) => n.category === "Cybersecurity").length;
   const latestUpdate = notes.reduce<string | null>((acc, note) => {
     if (!acc) return note.updatedAt;
@@ -224,8 +232,9 @@ export function getKnowledgeStats() {
   return {
     totalNotes: notes.length,
     cloudCount,
+    networkingCount,
     securityCount,
-    topicCount: 2,
+    topicCount: 3,
     tagCount: getAllTags().length,
     latestUpdate,
   };

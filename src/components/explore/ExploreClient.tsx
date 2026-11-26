@@ -118,6 +118,7 @@ export function ExploreClient({
             {(
               [
                 { id: "all", label: "All Topics" },
+                { id: "Networking", label: "Networking" },
                 { id: "Cloud Infrastructure", label: "Cloud Infrastructure" },
                 { id: "Cybersecurity", label: "Cybersecurity" },
               ] as const
