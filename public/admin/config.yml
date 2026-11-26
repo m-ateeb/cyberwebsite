@@ -1,0 +1,123 @@
+backend:
+  name: github
+  repo: m-ateeb/cyberwebsite
+  branch: main
+
+# Enables local editing with `npx decap-server` during development
+local_backend: true
+
+media_folder: public/images/uploads
+public_folder: /images/uploads
+
+publish_mode: editorial_workflow
+
+site_url: https://cyberwebsite-nu.vercel.app
+display_url: https://cyberwebsite-nu.vercel.app
+
+slug:
+  encoding: ascii
+  clean_accents: true
+  sanitize_replacement: "-"
+
+collections:
+  - name: notes
+    label: Engineering Notes
+    label_singular: Note
+    folder: src/content/notes
+    create: true
+    extension: md
+    format: frontmatter
+    slug: "{{slug}}"
+    summary: "{{title}} — {{category}} ({{difficulty}})"
+    fields:
+      - { label: Title, name: title, widget: string }
+      - { label: Slug, name: slug, widget: string, required: false, hint: "Optional custom URL slug; defaults to filename." }
+      - { label: Description, name: description, widget: text }
+      - label: Category
+        name: category
+        widget: select
+        options:
+          - Cloud Infrastructure
+          - Cybersecurity
+      - { label: Subcategory, name: subcategory, widget: string, required: false, hint: "e.g. AWS, Kubernetes, Zero Trust, Network Security" }
+      - label: Tags
+        name: tags
+        widget: list
+        required: false
+      - { label: Author, name: author, widget: string, default: "StratumSec" }
+      - { label: Published Date, name: publishedAt, widget: datetime, date_format: "YYYY-MM-DD", time_format: false }
+      - { label: Updated Date, name: updatedAt, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, required: false }
+      - label: Difficulty
+        name: difficulty
+        widget: select
+        default: Intermediate
+        options:
+          - Beginner
+          - Intermediate
+          - Advanced
+      - { label: Featured, name: featured, widget: boolean, default: false }
+      - { label: Draft, name: draft, widget: boolean, default: false }
+      - { label: Cover Image, name: coverImage, widget: image, required: false }
+      - { label: SEO Title, name: seoTitle, widget: string, required: false }
+      - { label: SEO Description, name: seoDescription, widget: text, required: false }
+      - label: Learning Experience (Reserved)
+        name: learningExperience
+        widget: object
+        required: false
+        collapsed: true
+        fields:
+          - label: Status
+            name: status
+            widget: select
+            default: not-created
+            options:
+              - not-created
+              - proposed
+              - approved
+              - published
+          - { label: Experience ID, name: id, widget: string, required: false }
+      - { label: Article Content, name: body, widget: markdown }
+
+  - name: topics
+    label: Topics
+    label_singular: Topic
+    folder: src/content/topics
+    create: false
+    extension: md
+    format: frontmatter
+    fields:
+      - label: Title
+        name: title
+        widget: select
+        options:
+          - Cloud Infrastructure
+          - Cybersecurity
+      - label: Slug
+        name: slug
+        widget: select
+        options:
+          - cloud
+          - security
+      - { label: Description, name: description, widget: text }
+      - label: Accent
+        name: accent
+        widget: select
+        options:
+          - blue
+          - lime
+      - { label: Subcategories, name: subcategories, widget: list }
+      - { label: Body, name: body, widget: markdown, required: false }
+
+  - name: authors
+    label: Authors
+    label_singular: Author
+    folder: src/content/authors
+    create: true
+    extension: md
+    format: frontmatter
+    fields:
+      - { label: Name, name: name, widget: string }
+      - { label: Role, name: role, widget: string }
+      - { label: Bio, name: bio, widget: text }
+      - { label: Website, name: website, widget: string, required: false }
+      - { label: GitHub, name: github, widget: string, required: false }
