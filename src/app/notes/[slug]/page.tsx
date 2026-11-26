@@ -82,7 +82,11 @@ export default function NotePage({ params }: PageProps<"/notes/[slug]">) {
   );
 }
 
-async function NotePageContent({ params }: PageProps<"/notes/[slug]">) {
+async function NotePageContent({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
   const note = getNoteBySlug(slug);
 
