@@ -84,10 +84,10 @@ export function Hero3DVisual() {
           )}
         </p>
         <Link
-          href="/notes/ebpf-kernel-observability-vs-sidecars"
+          href="/notes/what-is-cloud-computing"
           className="inline-flex shrink-0 items-center gap-1 font-mono text-[11px] text-[var(--accent-blue)] hover:text-[var(--text-primary)] transition-colors"
         >
-          Monograph
+          Read Cloud Note
           <ArrowUpRight className="h-3 w-3" />
         </Link>
       </figcaption>

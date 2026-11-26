@@ -58,11 +58,21 @@ export default function SecurityTopicPage() {
           </Link>
         </div>
 
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {notes.map((note) => (
-            <NoteCard key={note.slug} note={note} />
-          ))}
-        </div>
+        {notes.length === 0 ? (
+          <div className="rounded-lg border border-[var(--border-default)] bg-[var(--bg-surface)] p-8 text-sm text-[var(--text-secondary)]">
+            Cybersecurity monographs are currently being authored. In the meantime, explore{" "}
+            <Link href="/cloud" className="text-[var(--accent-blue)] underline underline-offset-4">
+              Cloud Infrastructure
+            </Link>
+            .
+          </div>
+        ) : (
+          <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+            {notes.map((note) => (
+              <NoteCard key={note.slug} note={note} />
+            ))}
+          </div>
+        )}
       </section>
     </main>
   );

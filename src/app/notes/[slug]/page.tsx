@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
@@ -68,7 +68,21 @@ export async function generateMetadata({
   };
 }
 
-export default async function NotePage({ params }: PageProps<"/notes/[slug]">) {
+export default function NotePage({ params }: PageProps<"/notes/[slug]">) {
+  return (
+    <Suspense
+      fallback={
+        <main className="mx-auto max-w-4xl px-4 py-16 font-mono text-xs text-[var(--text-muted)]">
+          Loading technical note...
+        </main>
+      }
+    >
+      <NotePageContent params={params} />
+    </Suspense>
+  );
+}
+
+async function NotePageContent({ params }: PageProps<"/notes/[slug]">) {
   const { slug } = await params;
   const note = getNoteBySlug(slug);
 
@@ -231,12 +245,24 @@ export default async function NotePage({ params }: PageProps<"/notes/[slug]">) {
               )}
             </header>
 
+            {/* Cover Diagram / Image */}
+            {note.coverImage && (
+              <figure className="mt-8 overflow-hidden rounded-lg border border-[var(--border-default)] bg-[var(--bg-surface)]">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={note.coverImage}
+                  alt={note.title}
+                  className="mx-auto max-h-[420px] w-full object-contain bg-[#090d12]"
+                />
+              </figure>
+            )}
+
             {/* Mobile Collapsible TOC */}
             <div className="mt-6">
               <TableOfContents items={toc} variant="mobile" />
             </div>
 
-            {/* Reserved Slot for Future Interactive Learning Engine (SILE) */}
+            {/* Interactive Learning Module (SILE Registry) */}
             <LearningExperienceSlot experience={note.learningExperience} />
 
             {/* Server-Rendered Technical Article Prose (works without JS) */}

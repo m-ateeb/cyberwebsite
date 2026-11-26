@@ -88,7 +88,7 @@ export function CommandSearchModal({
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="Search eBPF, SPIFFE, AWS IAM, ZTNA, KMS..."
+            placeholder="Search Cloud Computing, IaaS, PaaS, SaaS, Elasticity..."
             aria-label="Search notes"
             className="w-full bg-transparent text-sm text-[var(--text-primary)] placeholder-[var(--text-muted)] focus:outline-none"
           />

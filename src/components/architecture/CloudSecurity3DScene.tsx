@@ -420,9 +420,9 @@ export function CloudSecurity3DScene({
 
     const animate = (now: number) => {
       rafId = requestAnimationFrame(animate);
-      const dt = Math.min((now - lastTime) / 1000, 0.05);
+      const dt = Math.max(0, Math.min((now - lastTime) / 1000, 0.05));
       lastTime = now;
-      const elapsed = (now - startTime) / 1000;
+      const elapsed = Math.max(0, (now - startTime) / 1000);
 
       root.rotation.y += (targetRotY - root.rotation.y) * 0.1;
       root.rotation.x += (targetRotX - root.rotation.x) * 0.1;
@@ -482,13 +482,14 @@ export function CloudSecurity3DScene({
       if (!prefersReduced) {
         packetT = (packetT + dt * 0.42) % 1;
       }
-      if (maxReachIdx === 0) {
+      if (maxReachIdx <= 0) {
         const [sx, , sz] = NODE_POSITIONS.identity;
         packetMesh.position.set(sx, 0.52, sz);
       } else {
-        const segFloat = packetT * maxReachIdx;
-        const segIdx = Math.min(maxReachIdx - 1, Math.floor(segFloat));
-        const localT = segFloat - segIdx;
+        const clampedT = ((packetT % 1) + 1) % 1;
+        const segFloat = clampedT * maxReachIdx;
+        const segIdx = Math.max(0, Math.min(maxReachIdx - 1, Math.floor(segFloat)));
+        const localT = Math.max(0, Math.min(1, segFloat - segIdx));
         const [x1, , z1] = NODE_POSITIONS[STEP_ORDER[segIdx]];
         const [x2, , z2] = NODE_POSITIONS[STEP_ORDER[segIdx + 1]];
         const px = x1 + (x2 - x1) * localT;

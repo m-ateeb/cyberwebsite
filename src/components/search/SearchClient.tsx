@@ -81,7 +81,7 @@ export function SearchClient({ documents }: { documents: SearchDocument[] }) {
             Try one of these popular topics:
           </p>
           <div className="flex flex-wrap justify-center gap-2">
-            {["eBPF", "SPIFFE", "AWS", "Kubernetes", "KMS", "ZTNA"].map((term) => (
+            {["Cloud Computing", "IaaS", "PaaS", "SaaS", "Elasticity"].map((term) => (
               <button
                 key={term}
                 type="button"

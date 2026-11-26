@@ -248,7 +248,7 @@ export function Hero3DCanvas({ mode }: { mode: HeroCompareMode }) {
 
     const animate = (now: number) => {
       rafId = requestAnimationFrame(animate);
-      const dt = Math.min((now - lastTime) / 1000, 0.05);
+      const dt = Math.max(0, Math.min((now - lastTime) / 1000, 0.05));
       lastTime = now;
       const isSidecar = modeRef.current === "sidecar";
 

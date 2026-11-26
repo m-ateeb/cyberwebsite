@@ -104,31 +104,51 @@ export default function HomePage() {
 
           <div className="grid gap-8 lg:grid-cols-12">
             {/* Primary Lead Monograph */}
-            <article className="group lg:col-span-7 flex flex-col justify-between rounded-lg border border-[var(--border-default)] bg-[var(--bg-surface)] p-6 sm:p-8 transition-colors hover:border-[var(--border-strong)]">
-              <div className="space-y-4">
-                <div className="flex items-center justify-between font-mono text-[11px]">
-                  <span
-                    className={
-                      leadNote.category === "Cloud Infrastructure"
-                        ? "text-[var(--accent-blue)]"
-                        : "text-[var(--accent-lime)]"
-                    }
-                  >
-                    {leadNote.category} · Lead Note
-                  </span>
-                  <span className="text-[var(--text-muted)]">
-                    {leadNote.difficulty}
-                  </span>
+            <article
+              className={`group flex flex-col justify-between rounded-lg border border-[var(--border-default)] bg-[var(--bg-surface)] p-6 sm:p-8 transition-colors hover:border-[var(--border-strong)] ${
+                secondaryFeatured.length > 0 ? "lg:col-span-7" : "lg:col-span-12"
+              }`}
+            >
+              <div className={`grid gap-6 ${secondaryFeatured.length === 0 && leadNote.coverImage ? "md:grid-cols-12 md:items-center" : ""}`}>
+                <div className={`space-y-4 ${secondaryFeatured.length === 0 && leadNote.coverImage ? "md:col-span-7" : ""}`}>
+                  <div className="flex items-center justify-between font-mono text-[11px]">
+                    <span
+                      className={
+                        leadNote.category === "Cloud Infrastructure"
+                          ? "text-[var(--accent-blue)]"
+                          : "text-[var(--accent-lime)]"
+                      }
+                    >
+                      {leadNote.category} · Lead Note
+                    </span>
+                    <span className="text-[var(--text-muted)]">
+                      {leadNote.difficulty}
+                    </span>
+                  </div>
+
+                  <Link href={`/notes/${leadNote.slug}`} className="block space-y-3">
+                    <h3 className="font-display text-2xl sm:text-3xl font-semibold tracking-tight text-[var(--text-primary)] leading-snug group-hover:text-[var(--accent-blue)] transition-colors">
+                      {leadNote.title}
+                    </h3>
+                    <p className="text-sm sm:text-base leading-relaxed text-[var(--text-secondary)]">
+                      {leadNote.description}
+                    </p>
+                  </Link>
                 </div>
 
-                <Link href={`/notes/${leadNote.slug}`} className="block space-y-3">
-                  <h3 className="font-display text-2xl sm:text-3xl font-semibold tracking-tight text-[var(--text-primary)] leading-snug group-hover:text-[var(--accent-blue)] transition-colors">
-                    {leadNote.title}
-                  </h3>
-                  <p className="text-sm sm:text-base leading-relaxed text-[var(--text-secondary)]">
-                    {leadNote.description}
-                  </p>
-                </Link>
+                {secondaryFeatured.length === 0 && leadNote.coverImage && (
+                  <Link
+                    href={`/notes/${leadNote.slug}`}
+                    className="md:col-span-5 overflow-hidden rounded-md border border-[var(--border-default)] bg-[#090d12]"
+                  >
+                    {/* eslint-disable-next-line @next/next/no-img-element */}
+                    <img
+                      src={leadNote.coverImage}
+                      alt={leadNote.title}
+                      className="h-52 w-full object-contain p-2"
+                    />
+                  </Link>
+                )}
               </div>
 
               <div className="mt-8 flex items-center justify-between border-t border-[var(--border-default)] pt-4 font-mono text-xs text-[var(--text-muted)]">
@@ -139,56 +159,58 @@ export default function HomePage() {
                   href={`/notes/${leadNote.slug}`}
                   className="inline-flex items-center gap-1 text-[var(--text-primary)] group-hover:text-[var(--accent-lime)] transition-colors"
                 >
-                  Read monograph
+                  Read monograph &amp; interactive visual
                   <ArrowUpRight className="h-3.5 w-3.5" />
                 </Link>
               </div>
             </article>
 
             {/* Stacked Secondary Monographs */}
-            <div className="lg:col-span-5 flex flex-col divide-y divide-[var(--border-default)] rounded-lg border border-[var(--border-default)] bg-[var(--bg-surface)]">
-              {secondaryFeatured.map((note) => {
-                const isCloud = note.category === "Cloud Infrastructure";
-                return (
-                  <article key={note.slug} className="group flex-1 p-6 flex flex-col justify-between">
-                    <div>
-                      <div className="flex items-center justify-between font-mono text-[11px]">
-                        <span
-                          className={
-                            isCloud
-                              ? "text-[var(--accent-blue)]"
-                              : "text-[var(--accent-lime)]"
-                          }
-                        >
-                          {note.category}
-                        </span>
-                        <span className="text-[var(--text-muted)]">
-                          {note.readingTimeLabel}
-                        </span>
+            {secondaryFeatured.length > 0 && (
+              <div className="lg:col-span-5 flex flex-col divide-y divide-[var(--border-default)] rounded-lg border border-[var(--border-default)] bg-[var(--bg-surface)]">
+                {secondaryFeatured.map((note) => {
+                  const isCloud = note.category === "Cloud Infrastructure";
+                  return (
+                    <article key={note.slug} className="group flex-1 p-6 flex flex-col justify-between">
+                      <div>
+                        <div className="flex items-center justify-between font-mono text-[11px]">
+                          <span
+                            className={
+                              isCloud
+                                ? "text-[var(--accent-blue)]"
+                                : "text-[var(--accent-lime)]"
+                            }
+                          >
+                            {note.category}
+                          </span>
+                          <span className="text-[var(--text-muted)]">
+                            {note.readingTimeLabel}
+                          </span>
+                        </div>
+                        <Link href={`/notes/${note.slug}`} className="mt-2.5 block">
+                          <h3 className="font-display text-lg font-semibold tracking-tight text-[var(--text-primary)] leading-snug group-hover:text-[var(--accent-blue)] transition-colors">
+                            {note.title}
+                          </h3>
+                          <p className="mt-2 text-sm leading-relaxed text-[var(--text-secondary)] line-clamp-2">
+                            {note.description}
+                          </p>
+                        </Link>
                       </div>
-                      <Link href={`/notes/${note.slug}`} className="mt-2.5 block">
-                        <h3 className="font-display text-lg font-semibold tracking-tight text-[var(--text-primary)] leading-snug group-hover:text-[var(--accent-blue)] transition-colors">
-                          {note.title}
-                        </h3>
-                        <p className="mt-2 text-sm leading-relaxed text-[var(--text-secondary)] line-clamp-2">
-                          {note.description}
-                        </p>
-                      </Link>
-                    </div>
-                    <div className="mt-4 flex items-center justify-between font-mono text-[11px] text-[var(--text-muted)]">
-                      <span>{formatDisplayDate(note.publishedAt)}</span>
-                      <Link
-                        href={`/notes/${note.slug}`}
-                        className="inline-flex items-center gap-1 text-[var(--text-secondary)] group-hover:text-[var(--text-primary)]"
-                      >
-                        Read
-                        <ArrowUpRight className="h-3.5 w-3.5" />
-                      </Link>
-                    </div>
-                  </article>
-                );
-              })}
-            </div>
+                      <div className="mt-4 flex items-center justify-between font-mono text-[11px] text-[var(--text-muted)]">
+                        <span>{formatDisplayDate(note.publishedAt)}</span>
+                        <Link
+                          href={`/notes/${note.slug}`}
+                          className="inline-flex items-center gap-1 text-[var(--text-secondary)] group-hover:text-[var(--text-primary)]"
+                        >
+                          Read
+                          <ArrowUpRight className="h-3.5 w-3.5" />
+                        </Link>
+                      </div>
+                    </article>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </section>
       )}

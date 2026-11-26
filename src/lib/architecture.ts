@@ -49,8 +49,8 @@ export const ARCHITECTURE_LAYERS: ArchitectureLayer[] = [
       "Long-lived IAM keys, over-privileged roles, and static bearer token replay.",
     modernApproach:
       "Short-lived OIDC federation, SPIFFE/SPIRE X.509 SVIDs, and IAM Permission Boundaries.",
-    recommendedSlug: "spiffe-spire-workload-identity-mtls",
-    recommendedTitle: "Zero-Trust Workload Identity with SPIFFE/SPIRE",
+    recommendedSlug: "what-is-cloud-computing",
+    recommendedTitle: "Cloud Computing Fundamentals",
     controls: ["OIDC Federation", "Permission Boundaries", "mTLS SVIDs"],
     protocols: ["SPIFFE", "X.509", "AWS IAM SCP"],
   },
@@ -66,8 +66,8 @@ export const ARCHITECTURE_LAYERS: ArchitectureLayer[] = [
       "Exposed VPN concentrators and flat RFC1918 subnet lateral movement.",
     modernApproach:
       "Identity-Aware ZTNA proxies with outbound-only VPC connectors and continuous device posture.",
-    recommendedSlug: "ztna-vs-legacy-vpn-architecture",
-    recommendedTitle: "Replacing Legacy VPNs with ZTNA",
+    recommendedSlug: "what-is-cloud-computing",
+    recommendedTitle: "Cloud Computing Fundamentals",
     controls: ["Zero Inbound Ports", "Per-App AuthZ", "Device Posture"],
     protocols: ["mTLS", "ZTNA", "TLS 1.3"],
   },
@@ -83,8 +83,8 @@ export const ARCHITECTURE_LAYERS: ArchitectureLayer[] = [
       "Container escapes, indirect RBAC escalation, and blind user-space proxy sidecars.",
     modernApproach:
       "eBPF kernel-level syscall/network enforcement paired with Restricted Pod Security Standards.",
-    recommendedSlug: "ebpf-kernel-observability-vs-sidecars",
-    recommendedTitle: "eBPF Kernel-Level Security vs. Sidecars",
+    recommendedSlug: "what-is-cloud-computing",
+    recommendedTitle: "Cloud Computing Fundamentals",
     controls: ["eBPF TracingPolicy", "Pod Security Restricted", "No Auto-Token"],
     protocols: ["eBPF / XDP", "Cilium", "Tetragon"],
   },
@@ -100,8 +100,8 @@ export const ARCHITECTURE_LAYERS: ArchitectureLayer[] = [
       "Cross-tenant ciphertext swapping, KMS throttling, and unencrypted snapshots.",
     modernApproach:
       "Envelope encryption (AES-256-GCM DEK + Cloud KMS KEK) with strict AAD EncryptionContext.",
-    recommendedSlug: "envelope-encryption-cloud-kms",
-    recommendedTitle: "Envelope Encryption & Key Rotation with KMS",
+    recommendedSlug: "what-is-cloud-computing",
+    recommendedTitle: "Cloud Computing Fundamentals",
     controls: ["AES-256-GCM DEK", "KMS AAD Binding", "Auto KEK Rotation"],
     protocols: ["Cloud KMS", "AEAD / GCM", "HSM"],
   },
@@ -117,8 +117,8 @@ export const ARCHITECTURE_SCENARIOS: ArchitectureScenario[] = [
       "Watch a legitimate service call pass cryptographic workload attestation, outbound-only ZTNA routing, eBPF socket policy, and AAD-bound KMS decryption.",
     blockedLayerId: null,
     focusLayerId: "identity",
-    recommendedSlug: "spiffe-spire-workload-identity-mtls",
-    recommendedTitle: "Zero-Trust Workload Identity with SPIFFE/SPIRE",
+    recommendedSlug: "what-is-cloud-computing",
+    recommendedTitle: "Cloud Computing Fundamentals",
     hops: [
       {
         layerId: "identity",
@@ -151,8 +151,8 @@ export const ARCHITECTURE_SCENARIOS: ArchitectureScenario[] = [
       "A compromised pod attempts to spawn /bin/sh via sys_execve and exfiltrate secrets. Tetragon eBPF intercepts and kills the process in kernel Ring-0 before Data Plane access.",
     blockedLayerId: "workload",
     focusLayerId: "workload",
-    recommendedSlug: "ebpf-kernel-observability-vs-sidecars",
-    recommendedTitle: "eBPF Kernel-Level Security vs. Sidecars",
+    recommendedSlug: "what-is-cloud-computing",
+    recommendedTitle: "Cloud Computing Fundamentals",
     hops: [
       {
         layerId: "identity",
@@ -185,8 +185,8 @@ export const ARCHITECTURE_SCENARIOS: ArchitectureScenario[] = [
       "An attacker replays a leaked credential from outside the VPC. Because ZTNA requires device posture and SPIFFE binds identity to runtime attestation, the attempt dies at the edge.",
     blockedLayerId: "network",
     focusLayerId: "network",
-    recommendedSlug: "ztna-vs-legacy-vpn-architecture",
-    recommendedTitle: "Replacing Legacy VPNs with ZTNA",
+    recommendedSlug: "what-is-cloud-computing",
+    recommendedTitle: "Cloud Computing Fundamentals",
     hops: [
       {
         layerId: "identity",
