@@ -1,26 +1,98 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-canvas: #090b0f;
+  --bg-surface: rgba(16, 20, 28, 0.72);
+  --bg-elevated: rgba(23, 29, 40, 0.85);
+  --bg-code: #0c1017;
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --text-primary: #f8fafc;
+  --text-secondary: #94a3b8;
+  --text-muted: #64748b;
+  --accent-cloud: #38bdf8;
+  --accent-sec: #10b981;
+  --accent-warn: #f59e0b;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-background: var(--bg-canvas);
+  --color-foreground: var(--text-primary);
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains-mono), ui-monospace, monospace;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+html {
+  scroll-behavior: smooth;
+  color-scheme: dark;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background-color: var(--bg-canvas);
+  color: var(--text-primary);
+  font-family: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  background-image:
+    radial-gradient(ellipse 75% 45% at 50% -10%, rgba(56, 189, 248, 0.07), transparent),
+    radial-gradient(ellipse 50% 35% at 85% 20%, rgba(16, 185, 129, 0.04), transparent);
+}
+
+/* Subtle editorial architectural grid */
+.bg-architectural-grid {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 56px 56px;
+}
+
+/* Glassmorphism surface */
+.glass-panel {
+  background: var(--bg-surface);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border-subtle);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+}
+
+/* Isometric 3D perspective stage */
+.isometric-stage {
+  perspective: 1200px;
+}
+
+.isometric-stack {
+  transform-style: preserve-3d;
+  transform: rotateX(50deg) rotateZ(-32deg);
+}
+
+@media (max-width: 640px) {
+  .isometric-stack {
+    transform: rotateX(22deg) rotateZ(-10deg);
+  }
+}
+
+h1, h2, h3, h4, .font-display {
+  font-family: var(--font-space-grotesk), ui-sans-serif, system-ui, sans-serif;
+}
+
+code, pre, .font-mono {
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-cloud);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  .isometric-stack {
+    transform: none;
+  }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
