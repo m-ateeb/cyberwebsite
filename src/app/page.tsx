@@ -1,12 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import {
-  ArrowRight,
-  BookOpen,
-  Cloud,
-  Layers,
-  ShieldCheck,
-} from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import {
   formatDisplayDate,
   getAllNotes,
@@ -16,85 +10,54 @@ import {
 } from "@/lib/content";
 import { Hero3DVisual } from "@/components/home/Hero3DVisual";
 import { ArchitectureExplorerClient } from "@/components/architecture/ArchitectureExplorerClient";
-import { NoteCard } from "@/components/shared/NoteCard";
 import { NewsletterSection } from "@/components/shared/NewsletterSection";
 import { SupportCTA } from "@/components/shared/SupportCTA";
 
 export default function HomePage() {
   const allNotes = getAllNotes();
   const featuredNotes = getFeaturedNotes(3);
-  const featuredSlugs = new Set(featuredNotes.map((n) => n.slug));
-  const recentNotes = allNotes.filter((n) => !featuredSlugs.has(n.slug));
+  const [leadNote, ...secondaryFeatured] = featuredNotes;
   const stats = getKnowledgeStats();
   const topics = getAllTopics();
 
   return (
-    <main className="bg-stratum-grid">
-      {/* 1. Editorial Hero + Live 3D Zero-Trust Mesh Core */}
-      <section className="mx-auto max-w-7xl px-4 pt-10 pb-12 sm:px-6 lg:px-8 lg:pt-14">
-        <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
-          <div className="lg:col-span-6 space-y-6">
-            <div className="inline-flex items-center gap-2 rounded-md border border-[var(--border-default)] bg-[var(--bg-surface)] px-3 py-1 font-mono text-[11px] uppercase tracking-widest text-[var(--accent-lime)]">
-              <span className="h-1.5 w-1.5 rounded-full bg-[var(--accent-lime)]" />
-              STRATUMSEC · Technical Publication
-            </div>
+    <main className="mx-auto max-w-6xl px-4 sm:px-6 lg:px-8">
+      {/* 1. Editorial Masthead & Hero */}
+      <section className="pt-8 pb-14 lg:pt-12 lg:pb-16">
+        <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[var(--border-default)] pb-3 font-mono text-[11px] uppercase tracking-widest text-[var(--text-muted)]">
+          <span>Cloud Infrastructure &amp; Security Research</span>
+          <span>
+            {stats.totalNotes} Monographs · Updated{" "}
+            {stats.latestUpdate ? formatDisplayDate(stats.latestUpdate) : "—"}
+          </span>
+        </div>
 
-            <h1 className="font-display text-4xl sm:text-5xl lg:text-[3.4rem] font-bold tracking-tight text-[var(--text-primary)] leading-[1.06]">
-              Engineering knowledge.{" "}
-              <span className="text-[var(--accent-lime)]">
-                Without the noise.
-              </span>
+        <div className="mt-10 grid gap-10 lg:grid-cols-12 lg:items-center">
+          <div className="lg:col-span-6 space-y-6">
+            <h1 className="font-display text-4xl sm:text-5xl font-semibold tracking-[-0.03em] text-[var(--text-primary)] leading-[1.08]">
+              Engineering knowledge, without the noise.
             </h1>
 
-            <p className="max-w-xl text-base sm:text-lg leading-relaxed text-[var(--text-secondary)]">
-              Deep technical notes, threat models, and interactive 3D architecture
-              explainers across Cloud Infrastructure and Cybersecurity—written
-              for practitioners.
+            <p className="max-w-lg text-base leading-relaxed text-[var(--text-secondary)]">
+              Technical monographs, threat models, and architectural blueprints
+              examining how modern cloud infrastructure and Linux security
+              controls actually work in production.
             </p>
 
-            <div className="flex flex-wrap items-center gap-3 pt-1">
+            <div className="flex flex-wrap items-center gap-5 pt-1">
               <Link
                 href="/explore"
-                className="inline-flex items-center gap-2 rounded-xl bg-[var(--accent-lime)] px-5 py-3 text-sm font-semibold text-[#090d12] transition-opacity hover:opacity-90"
+                className="inline-flex h-10 items-center gap-2 rounded-md bg-[var(--text-primary)] px-4 text-sm font-medium text-[var(--bg-base)] transition-opacity hover:opacity-90"
               >
-                <BookOpen className="h-4 w-4" />
-                Explore Notes
+                Browse Archive
+                <ArrowRight className="h-4 w-4" />
               </Link>
               <a
                 href="#architecture-explainer"
-                className="inline-flex items-center gap-2 rounded-xl border border-[var(--border-default)] bg-[var(--bg-surface)] px-5 py-3 text-sm font-medium text-[var(--text-primary)] transition-colors hover:border-[var(--accent-blue)] hover:text-[var(--accent-blue)]"
+                className="font-mono text-xs text-[var(--text-secondary)] underline underline-offset-4 decoration-[var(--border-strong)] hover:text-[var(--text-primary)] transition-colors"
               >
-                <Layers className="h-4 w-4 text-[var(--accent-blue)]" />
-                Launch 3D Explainer
+                Inspect 3D Architecture →
               </a>
-            </div>
-
-            {/* Compact Knowledge Metrics Strip */}
-            <div className="grid grid-cols-3 gap-4 border-t border-[var(--border-default)] pt-6 max-w-md">
-              <div>
-                <p className="font-display text-2xl font-bold text-[var(--text-primary)]">
-                  {stats.totalNotes}
-                </p>
-                <p className="font-mono text-[10px] uppercase tracking-wider text-[var(--text-muted)]">
-                  Monographs
-                </p>
-              </div>
-              <div>
-                <p className="font-display text-2xl font-bold text-[var(--accent-blue)]">
-                  4 Strata
-                </p>
-                <p className="font-mono text-[10px] uppercase tracking-wider text-[var(--text-muted)]">
-                  3D Defense Stack
-                </p>
-              </div>
-              <div>
-                <p className="font-display text-sm sm:text-base font-bold text-[var(--accent-lime)] pt-1">
-                  {stats.latestUpdate ? formatDisplayDate(stats.latestUpdate) : "—"}
-                </p>
-                <p className="font-mono text-[10px] uppercase tracking-wider text-[var(--text-muted)]">
-                  Updated
-                </p>
-              </div>
             </div>
           </div>
 
@@ -104,157 +67,213 @@ export default function HomePage() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-7xl space-y-20 px-4 pb-16 sm:px-6 lg:px-8">
-        {/* 2. Interactive 3D Defense-in-Depth Explainer (Prominent Top-Mid Placement) */}
-        <section
-          id="architecture-explainer"
-          aria-label="Interactive 3D Defense-in-Depth Explainer"
-          className="scroll-mt-24 pt-2"
-        >
-          <ArchitectureExplorerClient />
-        </section>
+      {/* 2. Interactive 3D Request & Threat Walkthrough */}
+      <section
+        id="architecture-explainer"
+        aria-label="Interactive 3D Defense-in-Depth Architecture"
+        className="scroll-mt-20 border-t border-[var(--border-default)] py-14 lg:py-16"
+      >
+        <ArchitectureExplorerClient />
+      </section>
 
-        {/* 3. Featured Deep Dives */}
-        <section aria-labelledby="featured-heading" className="space-y-6">
-          <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+      {/* 3. Asymmetric Featured Monographs */}
+      {leadNote && (
+        <section
+          aria-labelledby="featured-heading"
+          className="border-t border-[var(--border-default)] py-14 lg:py-16 space-y-8"
+        >
+          <div className="flex items-end justify-between gap-4">
             <div>
-              <p className="font-mono text-xs uppercase tracking-widest text-[var(--accent-lime)]">
-                Start Reading
+              <p className="font-mono text-[11px] uppercase tracking-widest text-[var(--text-muted)]">
+                Featured Monographs
               </p>
               <h2
                 id="featured-heading"
-                className="mt-1 font-display text-2xl sm:text-3xl font-bold tracking-tight text-[var(--text-primary)]"
+                className="mt-1 font-display text-2xl font-semibold tracking-tight text-[var(--text-primary)]"
               >
-                Featured Deep Dives
+                Selected Deep Dives
               </h2>
             </div>
             <Link
               href="/explore"
-              className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--accent-blue)] hover:text-[var(--accent-lime)] transition-colors"
+              className="font-mono text-xs text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
             >
-              Browse full library ({stats.totalNotes})
-              <ArrowRight className="h-4 w-4" />
+              View all ({stats.totalNotes}) →
             </Link>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-3">
-            {featuredNotes.map((note) => (
-              <NoteCard key={note.slug} note={note} variant="featured" />
-            ))}
+          <div className="grid gap-8 lg:grid-cols-12">
+            {/* Primary Lead Monograph */}
+            <article className="group lg:col-span-7 flex flex-col justify-between rounded-lg border border-[var(--border-default)] bg-[var(--bg-surface)] p-6 sm:p-8 transition-colors hover:border-[var(--border-strong)]">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between font-mono text-[11px]">
+                  <span
+                    className={
+                      leadNote.category === "Cloud Infrastructure"
+                        ? "text-[var(--accent-blue)]"
+                        : "text-[var(--accent-lime)]"
+                    }
+                  >
+                    {leadNote.category} · Lead Note
+                  </span>
+                  <span className="text-[var(--text-muted)]">
+                    {leadNote.difficulty}
+                  </span>
+                </div>
+
+                <Link href={`/notes/${leadNote.slug}`} className="block space-y-3">
+                  <h3 className="font-display text-2xl sm:text-3xl font-semibold tracking-tight text-[var(--text-primary)] leading-snug group-hover:text-[var(--accent-blue)] transition-colors">
+                    {leadNote.title}
+                  </h3>
+                  <p className="text-sm sm:text-base leading-relaxed text-[var(--text-secondary)]">
+                    {leadNote.description}
+                  </p>
+                </Link>
+              </div>
+
+              <div className="mt-8 flex items-center justify-between border-t border-[var(--border-default)] pt-4 font-mono text-xs text-[var(--text-muted)]">
+                <span>
+                  {formatDisplayDate(leadNote.publishedAt)} · {leadNote.readingTimeLabel}
+                </span>
+                <Link
+                  href={`/notes/${leadNote.slug}`}
+                  className="inline-flex items-center gap-1 text-[var(--text-primary)] group-hover:text-[var(--accent-lime)] transition-colors"
+                >
+                  Read monograph
+                  <ArrowUpRight className="h-3.5 w-3.5" />
+                </Link>
+              </div>
+            </article>
+
+            {/* Stacked Secondary Monographs */}
+            <div className="lg:col-span-5 flex flex-col divide-y divide-[var(--border-default)] rounded-lg border border-[var(--border-default)] bg-[var(--bg-surface)]">
+              {secondaryFeatured.map((note) => {
+                const isCloud = note.category === "Cloud Infrastructure";
+                return (
+                  <article key={note.slug} className="group flex-1 p-6 flex flex-col justify-between">
+                    <div>
+                      <div className="flex items-center justify-between font-mono text-[11px]">
+                        <span
+                          className={
+                            isCloud
+                              ? "text-[var(--accent-blue)]"
+                              : "text-[var(--accent-lime)]"
+                          }
+                        >
+                          {note.category}
+                        </span>
+                        <span className="text-[var(--text-muted)]">
+                          {note.readingTimeLabel}
+                        </span>
+                      </div>
+                      <Link href={`/notes/${note.slug}`} className="mt-2.5 block">
+                        <h3 className="font-display text-lg font-semibold tracking-tight text-[var(--text-primary)] leading-snug group-hover:text-[var(--accent-blue)] transition-colors">
+                          {note.title}
+                        </h3>
+                        <p className="mt-2 text-sm leading-relaxed text-[var(--text-secondary)] line-clamp-2">
+                          {note.description}
+                        </p>
+                      </Link>
+                    </div>
+                    <div className="mt-4 flex items-center justify-between font-mono text-[11px] text-[var(--text-muted)]">
+                      <span>{formatDisplayDate(note.publishedAt)}</span>
+                      <Link
+                        href={`/notes/${note.slug}`}
+                        className="inline-flex items-center gap-1 text-[var(--text-secondary)] group-hover:text-[var(--text-primary)]"
+                      >
+                        Read
+                        <ArrowUpRight className="h-3.5 w-3.5" />
+                      </Link>
+                    </div>
+                  </article>
+                );
+              })}
+            </div>
           </div>
         </section>
+      )}
 
-        {/* 4. Explore by Discipline */}
-        <section aria-labelledby="topics-heading" className="space-y-6">
+      {/* 4. Engineering Archive Index (Clean Hairline Table) */}
+      <section
+        aria-labelledby="archive-heading"
+        className="border-t border-[var(--border-default)] py-14 lg:py-16 space-y-6"
+      >
+        <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <p className="font-mono text-xs uppercase tracking-widest text-[var(--accent-blue)]">
-              Core Disciplines
+            <p className="font-mono text-[11px] uppercase tracking-widest text-[var(--text-muted)]">
+              Complete Index
             </p>
             <h2
-              id="topics-heading"
-              className="mt-1 font-display text-2xl sm:text-3xl font-bold tracking-tight text-[var(--text-primary)]"
+              id="archive-heading"
+              className="mt-1 font-display text-2xl font-semibold tracking-tight text-[var(--text-primary)]"
             >
-              Browse by Engineering Domain
+              Published Field Notes
             </h2>
           </div>
 
-          <div className="grid gap-6 md:grid-cols-2">
-            {topics.map((topic) => {
-              const isCloud = topic.slug === "cloud";
-              const count = isCloud ? stats.cloudCount : stats.securityCount;
-              return (
-                <Link
-                  key={topic.slug}
-                  href={`/${topic.slug}`}
-                  className="group flex flex-col justify-between rounded-2xl border border-[var(--border-default)] bg-[var(--bg-surface)] p-6 sm:p-7 transition-all duration-200 hover:-translate-y-0.5 hover:border-[var(--border-strong)]"
-                >
-                  <div>
-                    <div className="flex items-center justify-between gap-2">
-                      <div
-                        className={`inline-flex h-10 w-10 items-center justify-center rounded-xl border ${
-                          isCloud
-                            ? "border-[var(--accent-blue)]/35 bg-[var(--accent-blue-dim)] text-[var(--accent-blue)]"
-                            : "border-[var(--accent-lime)]/35 bg-[var(--accent-lime-dim)] text-[var(--accent-lime)]"
-                        }`}
-                      >
-                        {isCloud ? (
-                          <Cloud className="h-5 w-5" />
-                        ) : (
-                          <ShieldCheck className="h-5 w-5" />
-                        )}
-                      </div>
-                      <span className="font-mono text-xs text-[var(--text-muted)]">
-                        {count} note{count === 1 ? "" : "s"}
-                      </span>
-                    </div>
-
-                    <h3 className="mt-4 font-display text-xl sm:text-2xl font-bold text-[var(--text-primary)] group-hover:text-[var(--accent-lime)] transition-colors">
-                      {topic.title}
-                    </h3>
-                    <p className="mt-2 text-sm leading-relaxed text-[var(--text-secondary)]">
-                      {topic.description}
-                    </p>
-
-                    <div className="mt-4 flex flex-wrap gap-1.5">
-                      {topic.subcategories.slice(0, 5).map((sub) => (
-                        <span
-                          key={sub}
-                          className="rounded-md border border-[var(--border-default)] bg-[var(--bg-base)] px-2.5 py-0.5 font-mono text-[10px] text-[var(--text-muted)]"
-                        >
-                          {sub}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div className="mt-6 inline-flex items-center gap-1.5 text-sm font-semibold text-[var(--accent-blue)] group-hover:text-[var(--accent-lime)] transition-colors">
-                    Explore {topic.title}
-                    <ArrowRight className="h-4 w-4" />
-                  </div>
-                </Link>
-              );
-            })}
-          </div>
-        </section>
-
-        {/* 5. Recent Field Notes (Non-duplicate chronological archive) */}
-        {recentNotes.length > 0 && (
-          <section aria-labelledby="recent-heading" className="space-y-6">
-            <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <p className="font-mono text-xs uppercase tracking-widest text-[var(--accent-blue)]">
-                  More From the Archive
-                </p>
-                <h2
-                  id="recent-heading"
-                  className="mt-1 font-display text-2xl sm:text-3xl font-bold tracking-tight text-[var(--text-primary)]"
-                >
-                  Recent Field Notes
-                </h2>
-              </div>
+          <div className="flex items-center gap-5 font-mono text-xs">
+            {topics.map((topic) => (
               <Link
-                href="/explore"
-                className="inline-flex items-center gap-1.5 text-sm font-medium text-[var(--accent-blue)] hover:text-[var(--accent-lime)] transition-colors"
+                key={topic.slug}
+                href={`/${topic.slug}`}
+                className="text-[var(--text-secondary)] hover:text-[var(--text-primary)] transition-colors"
               >
-                Filter &amp; search all
-                <ArrowRight className="h-4 w-4" />
+                {topic.title} (
+                {topic.slug === "cloud" ? stats.cloudCount : stats.securityCount})
               </Link>
-            </div>
-
-            <div className="grid gap-6 md:grid-cols-3">
-              {recentNotes.map((note) => (
-                <NoteCard key={note.slug} note={note} />
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* 6. Community: Newsletter + Reader Support */}
-        <div className="space-y-6">
-          <NewsletterSection />
-          <SupportCTA />
+            ))}
+          </div>
         </div>
-      </div>
+
+        <div className="divide-y divide-[var(--border-default)] border-y border-[var(--border-default)]">
+          {allNotes.map((note) => {
+            const isCloud = note.category === "Cloud Infrastructure";
+            return (
+              <Link
+                key={note.slug}
+                href={`/notes/${note.slug}`}
+                className="group grid gap-2 py-4 transition-colors hover:bg-[var(--bg-surface)]/70 sm:px-3 md:grid-cols-12 md:items-baseline md:gap-4"
+              >
+                <span className="font-mono text-xs text-[var(--text-muted)] md:col-span-2">
+                  {formatDisplayDate(note.publishedAt)}
+                </span>
+                <span
+                  className={`font-mono text-[11px] md:col-span-2 ${
+                    isCloud
+                      ? "text-[var(--accent-blue)]"
+                      : "text-[var(--accent-lime)]"
+                  }`}
+                >
+                  {isCloud ? "Cloud Infra" : "Cybersecurity"}
+                </span>
+                <div className="md:col-span-6">
+                  <h3 className="font-display text-base font-medium text-[var(--text-primary)] group-hover:text-[var(--accent-blue)] transition-colors">
+                    {note.title}
+                  </h3>
+                  <p className="mt-0.5 text-xs text-[var(--text-secondary)] line-clamp-1">
+                    {note.description}
+                  </p>
+                </div>
+                <span className="font-mono text-[11px] text-[var(--text-muted)] md:col-span-2 md:text-right">
+                  {note.readingTimeLabel}
+                </span>
+              </Link>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* 5. Dispatches & Reader Support (Clean 2-Column Closing Band) */}
+      <section className="border-t border-[var(--border-default)] py-14 lg:py-16">
+        <div className="grid gap-12 md:grid-cols-2 md:divide-x md:divide-[var(--border-default)]">
+          <div>
+            <NewsletterSection />
+          </div>
+          <div className="md:pl-12">
+            <SupportCTA />
+          </div>
+        </div>
+      </section>
     </main>
   );
 }
